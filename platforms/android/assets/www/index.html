@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <title>Sir. VR</title>
+</head>
+
+<body>
+    <script type="text/javascript" src="js/spark.js"></script>
+    <script type="text/javascript">
+
+    console.log('connect start');
+
+    window.tlantic.plugins.socket.connect(
+        function(connectionId) {
+            console.log('worked! This is the connection ID: ', connectionId);
+        },
+
+        function() {
+            console.log('connect failed!');
+        },
+        '172.20.10.5',
+        9000
+    );
+
+    console.log('connect end');
+    window.tlantic.plugins.socket.send(
+        function() {
+            console.log('send worked!');
+        },
+
+        function() {
+            console.log('send failed!');
+        },
+        '172.20.10.5:9000',
+        'This is the data i want to send!'
+    );
+
+    // // the reference angle
+    // var oriYaw = 0;
+    // var oriPitch = 0;
+
+    // // current angle
+    // var diffYaw = 0;
+    // var diffPitch = 0;
+
+    // // sending timer
+    // var sendTimer = setInterval("sendAngle();", 1000);;
+    // var isSend = false;
+
+    // // represent the sending state
+    // var sendState = false;
+
+    // function resetAngle() {
+    //     oriYaw = oriYaw + diffYaw;
+    //     oriPitch = oriPitch + diffPitch;
+    //     diffYaw = 0;
+    //     diffPitch = 0;
+    // }
+
+    // function startAngle() {
+    //     if (isSend) {
+    //         document.getElementById("start").innerHTML = "Start";
+    //     } else {
+    //         document.getElementById("start").innerHTML = "Pause";
+    //         resetAngle();
+    //     }
+    //     isSend = !isSend;
+    // }
+
+    // function sendAngle() {
+
+    //     if (!isSend)
+    //         return;
+
+    //     var yaw = 90 + Math.round(diffYaw);
+    //     var pitch = 90 + Math.round(diffPitch);
+
+    //     document.getElementById("yawAng").innerHTML = yaw;
+    //     document.getElementById("pitchAng").innerHTML = pitch;
+
+    //     if (sendState)
+    //         document.getElementById("indicator").innerHTML = "oo"
+    //     else
+    //         document.getElementById("indicator").innerHTML = "ooooo"
+
+    //     sendState = !sendState;
+
+    //     sparkSetYaw(yaw);
+    //     sparkSetPitch(pitch);
+    // }
+
+    // // To read the gyroscope data
+    // window.addEventListener('deviceorientation', function(event) {
+
+    //     // Get Euler angles from device
+    //     var alpha = 360 - event.alpha;
+    //     var beta = event.beta;
+    //     var gamma = event.gamma;
+
+    //     // Display Euler angles
+    //     document.getElementById("alpha").innerHTML = alpha;
+    //     document.getElementById("beta").innerHTML = beta;
+    //     document.getElementById("gamma").innerHTML = gamma;
+
+    //     diffYaw = alpha - oriYaw;
+    //     diffPitch = beta - oriPitch;
+    // }, false);
+    </script>
+
+
+    <button id="start" onclick="startAngle();">Start</button>
+    <div>
+        <p>alpha = <span id="alpha">0</span>
+        </p>
+        <p>beta = <span id="beta">0</span>
+        </p>
+        <p>gamma = <span id="gamma">0</span>
+        </p>
+        <br>
+
+        <p>[diff] yaw = <span id="yawAng">0</span>
+        </p>
+        <p>[diff] pitch = <span id="pitchAng">0</span>
+        </p>
+        <span id="indicator">ooooo</span>
+    </div>
+</body>
+
+</html>
